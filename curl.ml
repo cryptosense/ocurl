@@ -264,6 +264,7 @@ type curlMIMEPart =
     encoding: curlMIMEEncoding;
     headers: string list;
     subparts: curlMIMEPart list;
+    name: string option;
     data: curlMIMEPartData;
   }
 

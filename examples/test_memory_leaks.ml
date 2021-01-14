@@ -12,7 +12,7 @@ let test1 size =
 let test2 size =
   let h = init () in
   let s = String.make size 'a' in
-  set_mimepost h [{encoding=CURLMIME_BINARY;headers=[];subparts=[];data=CURLMIME_DATA s}];
+  set_mimepost h [{encoding=CURLMIME_BINARY;headers=[];subparts=[];name=None;data=CURLMIME_DATA s}];
   let g = init () in
   cleanup h;
   cleanup g

@@ -1309,7 +1309,8 @@ static void new_part(Connection* conn, curl_mime* mime, value v_part)
   value v_encoding = Field(v_part, 0);
   value v_headers  = Field(v_part, 1);
   value v_subparts = Field(v_part, 2);
-  value v_data     = Field(v_part, 3);
+  value v_name     = Field(v_part, 3);
+  value v_data     = Field(v_part, 4);
   value v_str      = Field(v_data, 0);
 
   struct curl_slist *headers = NULL;
@@ -1370,6 +1371,14 @@ static void new_part(Connection* conn, curl_mime* mime, value v_part)
 
   if (result != CURLE_OK) {
     raiseError(conn, result);
+  }
+
+  if (Is_block(v_name)) {
+    result = curl_mime_name(part, String_val(Field(v_name, 0)));
+
+    if (result != CURLE_OK) {
+      raiseError(conn, result);
+    }
   }
 
   if (v_subparts != Val_emptylist) {
